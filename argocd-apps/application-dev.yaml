@@ -1,0 +1,31 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: my-first-app-dev
+  namespace: argocd   # namespace donde vive ArgoCD, normalmente "argocd"
+  finalizers:
+    - resources-finalizer.argocd.argoproj.io
+spec:
+  project: default
+
+  source:
+    repoURL: https://github.com/tu-org/tu-repo.git   # <- cambia por tu repo real
+    targetRevision: main                              # rama, tag o commit
+    path: overlays/dev
+
+  destination:
+    server: https://kubernetes.default.svc   # clúster actual; cambia si despliegas a otro
+    namespace: my-first-app-dev
+
+  syncPolicy:
+    automated:
+      prune: true       # borra recursos que ya no estén en Git
+      selfHeal: true     # revierte cambios manuales hechos fuera de Git
+    syncOptions:
+      - CreateNamespace=true   # crea el namespace si no existe
+    retry:
+      limit: 5
+      backoff:
+        duration: 5s
+        factor: 2
+        maxDuration: 3m
