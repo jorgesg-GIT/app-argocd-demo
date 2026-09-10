@@ -9,13 +9,13 @@ spec:
   project: default
 
   source:
-    repoURL: https://github.com/tu-org/tu-repo.git   # <- cambia por tu repo real
+    repoURL: https://https://github.com/jorgesg-GIT/app-argocd-demo.git   # <- cambia por tu repo real
     targetRevision: main                              # rama, tag o commit
     path: overlays/dev
 
   destination:
     server: https://kubernetes.default.svc   # clúster actual; cambia si despliegas a otro
-    namespace: my-first-app-dev
+    namespace: argocd-demo
 
   syncPolicy:
     automated:
