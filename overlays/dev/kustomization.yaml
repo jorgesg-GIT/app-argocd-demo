@@ -1,6 +1,6 @@
 apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
-namespace: my-first-app-dev
+namespace: argocd-demo
 resources:
   - ../../base
 
@@ -18,7 +18,7 @@ patches:
     patch: |-
       - op: replace
         path: /spec/rules/0/host
-        value: dev.app.example.com
+        value: argocd.corebyteops.net
 
 configMapGenerator:
   - name: my-first-app-config
