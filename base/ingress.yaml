@@ -2,14 +2,10 @@ apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
   name: my-first-app
-  annotations:
-    kubernetes.io/ingress.class: "nginx"   # cámbialo a "gce" si usas el GCE Ingress Controller nativo de GKE
-    # Si usas cert-manager para TLS automático, descomenta:
-    # cert-manager.io/cluster-issuer: "letsencrypt-prod"
 spec:
+  ingressClassName: nginx
   rules:
-    - host: app.example.com   # se sobreescribe por entorno en los overlays
-      http:
+    - http:              # sin "host": acepta cualquier host, útil para pruebas locales
         paths:
           - path: /
             pathType: Prefix
@@ -18,7 +14,3 @@ spec:
                 name: my-first-app
                 port:
                   number: 80
-  # tls:
-  #   - hosts:
-  #       - app.example.com
-  #     secretName: my-first-app-tls

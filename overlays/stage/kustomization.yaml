@@ -12,14 +12,6 @@ patches:
       - op: replace
         path: /spec/replicas
         value: 2
-  - target:
-      kind: Ingress
-      name: my-first-app
-    patch: |-
-      - op: replace
-        path: /spec/rules/0/host
-        value: stage.app.example.com
-
 configMapGenerator:
   - name: my-first-app-config
     behavior: merge
